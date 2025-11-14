@@ -6,20 +6,24 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/13 17:54:36 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:38:43 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*get_next_line(int fd)
 {
 	char		*out;
-	static int	i = 0;
-	static char	
+	int			i;
+	static char	*buffer;
 
 	out =  "";
-	if (fd < 0 || fd > 1023)
+	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
 		return (NULL);
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	i = read(fd, buffer, BUFFER_SIZE);
 	if (!i)
-		i = read(fd, red, BUFFER_SIZE);
-	ft_check
+		return (NULL);
+	
 }
