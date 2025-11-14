@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/14 15:38:43 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/14 17:45:55 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ char	*get_next_line(int fd)
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	i = read(fd, buffer, BUFFER_SIZE);
+	if (!buffer)
+		i = read(fd, buffer, BUFFER_SIZE);
+	else
+		i = ft_strlen(buffer);
 	if (!i)
 		return (NULL);
 	
