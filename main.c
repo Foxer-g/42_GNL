@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 13:54:31 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/19 15:37:50 by toespino         ###   ########.fr       */
+/*   Created: 2025/11/19 15:07:59 by toespino          #+#    #+#             */
+/*   Updated: 2025/11/19 16:50:54 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include <stdio.h>
+#include <fcntl.h>
+#include "get_next_line.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
+int	main(void)
+{
+	int		fd;
+	int		i;
+	char	*line;
 
-# include <unistd.h>
-# include <stdlib.h>
-
-char	*get_next_line(int fd);
-int		ft_strlen(char *str);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strcpy_until(char *src);
-char	*ft_strcpy_since(char *src);
-#endif
+	fd = open("test.txt", O_RDONLY);
+	i = 18;
+	line = get_next_line(fd);
+	while (i > 0)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+		i--;
+	}
+	free(line);
+	close(fd);
+	return (0);
+}
