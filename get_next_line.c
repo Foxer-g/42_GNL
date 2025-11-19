@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/17 20:00:02 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:47:42 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 		i = read(fd, buffer, BUFFER_SIZE);
 	else
 		i = ft_strlen(buffer);
-	while (!ft_have_end_line() && i != 0)
+	while (!ft_have_end_line(buffer) && i != 0)
 	{
 		i = read(fd, temp, BUFFER_SIZE);
 		buffer = ft_strjoin(buffer, temp);

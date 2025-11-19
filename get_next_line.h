@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:54:31 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/14 14:06:37 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:00:54 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
+
+# include <stdlib.h>
 #endif
