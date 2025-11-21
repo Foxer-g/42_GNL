@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:34:00 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/19 14:21:10 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/21 16:07:57 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strcpy_since(char *src)
 	return (out);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_f(char *s1, char *s2)
 {
 	char	*out;
 	int		i;
