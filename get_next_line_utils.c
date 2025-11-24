@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:34:00 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/21 16:07:57 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/24 18:54:56 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,20 @@ char	*ft_strcpy_until(char *src)
 	int		i;
 
 	out = malloc(ft_strlen(src) + 1);
+	if (!out)
+		return (NULL);
 	i = 0;
 	while (src[i] && src[i] != '\n')
 	{
 		out[i] = src[i];
 		i++;
 	}
+	if (src[i] == '\n')
+	{
+		out[i] = src[i];
+		i++;
+	}
+	out[i] = '\0';
 	return (out);
 }
 
