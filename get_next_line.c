@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/24 21:15:01 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/25 18:59:36 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 char	*ft_strdup(const char *s)
 {
-	size_t	len;
 	size_t	i;
 	char	*out;
 
-	len = ft_strlen((char *)s);
-	out = malloc(len + 1);
+	if (!s)
+		return (NULL);
+	out = malloc(ft_strlen((char *)s) + 1);
 	if (!out)
 		return (NULL);
 	i = 0;
@@ -59,7 +59,11 @@ char	*ft_create_buffer(char *buffer, int *i, int fd)
 
 	temp = NULL;
 	if (!*buffer)
+	{
 		*i = read(fd, buffer, BUFFER_SIZE);
+		if (*i == 0)
+			buffer = NULL;
+	}
 	else
 		*i = ft_strlen(buffer);
 	while (!ft_have_end_line(buffer) && *i)
