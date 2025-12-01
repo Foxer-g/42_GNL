@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/27 19:10:38 by toespino         ###   ########.fr       */
+/*   Updated: 2025/12/01 01:49:30 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,28 +53,6 @@ int	ft_have_end_line(char *buffer)
 	return (res);
 }
 
-char	*ft_create_buffer(char *buffer, int *i, int fd)
-{
-	char		*temp;
-
-	temp = NULL;
-	if (!*buffer)
-	{
-		*i = read(fd, buffer, BUFFER_SIZE);
-		if (*i == 0)
-			buffer = NULL;
-	}
-	else
-		*i = ft_strlen(buffer);
-	while (!ft_have_end_line(buffer) && *i)
-	{
-		*i = read(fd, buffer, BUFFER_SIZE);
-		buffer[*i] = '\0';
-		buffer = ft_strjoin_f(buffer, temp);
-	}
-	return (buffer);
-}
-
 char	*get_next_line(int fd)
 {
 	char		*out;
@@ -87,11 +65,23 @@ char	*get_next_line(int fd)
 	temp = NULL;
 	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
 		return (NULL);
-	temp = ft_create_buffer(temp, &i, fd);
-	if (!buffer)
-		buffer = malloc(ft_strlen(temp));
-	if (!buffer)
+	temp = malloc((size_t)BUFFER_SIZE + 1);
+	if (!temp)
 		return (NULL);
+	if (!*buffer)
+	{
+		i = read(fd, temp, BUFFER_SIZE);
+		if (i == 0)
+			buffer = NULL;
+	}
+	else
+		i = ft_strlen(buffer);
+	while (!ft_have_end_line(buffer) && i)
+	{
+		i = read(fd, temp, BUFFER_SIZE);
+		buffer[i] = '\0';
+		buffer = ft_strjoin_f(buffer, temp);
+	}
 	out = ft_strcpy_until(temp);
 	if (i != 0)
 	{
