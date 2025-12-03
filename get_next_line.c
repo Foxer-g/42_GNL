@@ -6,7 +6,11 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/12/02 19:30:54 by toespino         ###   ########.fr       */
+=======
+/*   Updated: 2025/11/24 21:15:01 by toespino         ###   ########.fr       */
+>>>>>>> parent of 5cabdf9 (IT NOW WORK (but valgrind said))
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +18,12 @@
 
 char	*ft_strdup(const char *s)
 {
+	size_t	len;
 	size_t	i;
 	char	*out;
 
-	if (!s)
-		return (NULL);
-	out = malloc(ft_strlen((char *)s) + 1);
+	len = ft_strlen((char *)s);
+	out = malloc(len + 1);
 	if (!out)
 		return (NULL);
 	i = 0;
@@ -53,6 +57,27 @@ int	ft_have_end_line(char *buffer)
 	return (res);
 }
 
+<<<<<<< HEAD
+=======
+char	*ft_create_buffer(char *buffer, int *i, int fd)
+{
+	char		*temp;
+
+	temp = NULL;
+	if (!*buffer)
+		*i = read(fd, buffer, BUFFER_SIZE);
+	else
+		*i = ft_strlen(buffer);
+	while (!ft_have_end_line(buffer) && *i)
+	{
+		*i = read(fd, buffer, BUFFER_SIZE);
+		buffer[*i] = '\0';
+		buffer = ft_strjoin_f(buffer, temp);
+	}
+	return (buffer);
+}
+
+>>>>>>> parent of 5cabdf9 (IT NOW WORK (but valgrind said))
 char	*get_next_line(int fd)
 {
 	char		*out;

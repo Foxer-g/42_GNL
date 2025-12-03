@@ -6,7 +6,11 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:34:00 by toespino          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/11/28 17:40:27 by toespino         ###   ########.fr       */
+=======
+/*   Updated: 2025/11/25 12:30:48 by toespino         ###   ########.fr       */
+>>>>>>> parent of 5cabdf9 (IT NOW WORK (but valgrind said))
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +20,6 @@ int	ft_strlen(char *str)
 {
 	int	i;
 
-	if (!str)
-		return (0);
 	i = 0;
 	while (str[i])
 		i++;
@@ -29,8 +31,6 @@ char	*ft_strcpy_until(char *src)
 	char	*out;
 	int		i;
 
-	if (!src)
-		return (0);
 	out = malloc(ft_strlen(src) + 1);
 	if (!out)
 		return (NULL);
@@ -60,16 +60,11 @@ char	*ft_strcpy_since(char *src)
 	int		i;
 	int		j;
 
-	if (!src)
-		return (0);
 	out = malloc(ft_strlen(src) + 1);
-	if (!out)
-		return (NULL); 
 	i = 0;
 	j = 0;
 	while (src[i] && src[i] != '\n')
 		i++;
-	i++;
 	while (src[i])
 	{
 		out[j] = src[i];
