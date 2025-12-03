@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/25 18:59:36 by toespino         ###   ########.fr       */
+/*   Updated: 2025/12/03 18:31:35 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ char	*ft_create_buffer(char *buffer, int *i, int fd)
 		*i = ft_strlen(buffer);
 	while (!ft_have_end_line(buffer) && *i)
 	{
-		*i = read(fd, buffer, BUFFER_SIZE);
-		buffer[*i] = '\0';
+		*i = read(fd, temp, BUFFER_SIZE);
+		temp[*i] = '\0';
 		buffer = ft_strjoin_f(buffer, temp);
 	}
 	return (buffer);
