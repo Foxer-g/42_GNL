@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:34:00 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/25 20:59:47 by toespino         ###   ########.fr       */
+/*   Updated: 2025/11/28 17:40:27 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ char	*ft_strcpy_until(char *src)
 	{
 		out[i] = src[i];
 		i++;
+		if (!src[i])
+		{
+			free(out);
+			return (src);
+		}
 	}
 	if (src[i] == '\n')
 	{

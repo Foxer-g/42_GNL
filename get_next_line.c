@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/12/01 01:49:30 by toespino         ###   ########.fr       */
+/*   Updated: 2025/12/02 19:30:54 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*get_next_line(int fd)
 
 	out = NULL;
 	i = 0;
-	temp = NULL;
 	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
 		return (NULL);
 	temp = malloc((size_t)BUFFER_SIZE + 1);
@@ -79,16 +78,22 @@ char	*get_next_line(int fd)
 	while (!ft_have_end_line(buffer) && i)
 	{
 		i = read(fd, temp, BUFFER_SIZE);
-		buffer[i] = '\0';
+		temp[i] = '\0';
 		buffer = ft_strjoin_f(buffer, temp);
 	}
 	out = ft_strcpy_until(temp);
+	if (!buffer)
+		buffer = malloc((size_t)BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	out = ft_strcpy_until(buffer);
 	if (i != 0)
 	{
+		temp = ft_strdup(buffer);
+		free(buffer);
 		buffer = ft_strcpy_since(temp);
-		free(temp);
 	}
 	else
-		free(temp);
+		free(buffer);
 	return (out);
 }
