@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:11:08 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/26 21:16:01 by toespino         ###   ########.fr       */
+/*   Updated: 2025/12/06 10:43:43 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ int	ft_have_end_line(char *buffer)
 	return (res);
 }
 
-char	*ft_create_buffer(int *i, int fd)
+char	*ft_create_buffer(char *buffer, int *i, int fd)
 {
 	char		*temp;
 
+	if(!buffer)
+		return (NULL);
 	temp = NULL;
 	if (!*buffer)
 	{
@@ -66,10 +68,11 @@ char	*ft_create_buffer(int *i, int fd)
 	}
 	else
 		*i = ft_strlen(buffer);
-	while (!ft_have_end_line(buffer) && *i)
+	while (!ft_have_end_line(buffer) && *i > 0)
 	{
-		*i = read(fd, buffer, BUFFER_SIZE);
-		buffer[*i] = '\0';
+		*i = read(fd, temp, BUFFER_SIZE);
+		if (*i > 0)
+			temp[*i] = '\0';
 		buffer = ft_strjoin_f(buffer, temp);
 	}
 	return (buffer);
@@ -79,15 +82,19 @@ char	*get_next_line(int fd)
 {
 	char		*out;
 	int			i;
-	static char	*buffer = NULL;
+	static char	*buffer;
 	char		*temp;
 
 	out = NULL;
 	i = 0;
 	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
 		return (NULL);
-	temp = ft_create_buffer(&i, fd);
-	out = ft_strcpy_until();
+	if (!buffer)
+		buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	buffer = ft_create_buffer(buffer, &i, fd);
+	out = ft_strcpy_until(buffer);
 	if (i != 0)
 	{
 		temp = ft_strdup(buffer);
