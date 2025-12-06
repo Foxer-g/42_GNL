@@ -5,100 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 15:34:00 by toespino          #+#    #+#             */
-/*   Updated: 2025/11/25 20:59:47 by toespino         ###   ########.fr       */
+/*   Created: 2025/12/06 11:59:09 by toespino          #+#    #+#             */
+/*   Updated: 2025/12/06 18:06:32 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+char	*ft_free(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+	return (NULL);
+}
 
 int	ft_strlen(char *str)
 {
 	int	i;
 
-	if (!str)
-		return (0);
 	i = 0;
 	while (str[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strcpy_until(char *src)
+int	ft_strchr(char *str, int c)
 {
-	char	*out;
-	int		i;
+	int	out;
+	int	i;
 
-	if (!src)
+	if (!str)
 		return (0);
-	out = malloc(ft_strlen(src) + 1);
-	if (!out)
-		return (NULL);
 	i = 0;
-	while (src[i] && src[i] != '\n')
+	while (str[i])
 	{
-		out[i] = src[i];
+		if (str[i] == (char)c)
+		{
+			out = 1;
+			break ;
+		}
 		i++;
 	}
-	if (src[i] == '\n')
-	{
-		out[i] = src[i];
-		i++;
-	}
-	out[i] = '\0';
 	return (out);
 }
 
-char	*ft_strcpy_since(char *src)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*out;
 	int		i;
 	int		j;
 
-	if (!src)
-		return (0);
-	out = malloc(ft_strlen(src) + 1);
-	if (!out)
-		return (NULL); 
-	i = 0;
-	j = 0;
-	while (src[i] && src[i] != '\n')
-		i++;
-	i++;
-	while (src[i])
-	{
-		out[j] = src[i];
-		i++;
-		j++;
-	}
-	out[j] = '\0';
-	return (out);
-}
-
-char	*ft_strjoin_f(char *s1, char *s2)
-{
-	char	*out;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
 	if (!s1 || !s2)
-		return (NULL);
-	out = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+		return (NULL)
+	out = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char *));
 	if (!out)
 		return (NULL);
+	i = -1;
+	j = -1;
 	while (s1[i])
-	{
-		out[i] = s1[i];
-		i++;
-	}
+		out[i] = s1[i++];
 	while (s2[j])
-	{
-		out[i] = s2[j];
-		i++;
-		j++;
-	}
-	free(s1);
+		out[i + j] = s2[j++];
+	out[i + j] = '\0';
+	ft_free(s1, s2);
 	return (out);
 }
