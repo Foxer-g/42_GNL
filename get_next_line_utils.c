@@ -6,9 +6,11 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 11:59:09 by toespino          #+#    #+#             */
-/*   Updated: 2025/12/06 18:06:32 by toespino         ###   ########.fr       */
+/*   Updated: 2025/12/06 19:37:48 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
 
 char	*ft_free(char *s1, char *s2)
 {
@@ -54,16 +56,16 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		j;
 
 	if (!s1 || !s2)
-		return (NULL)
+		return (NULL);
 	out = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char *));
 	if (!out)
 		return (NULL);
 	i = -1;
 	j = -1;
-	while (s1[i])
-		out[i] = s1[i++];
-	while (s2[j])
-		out[i + j] = s2[j++];
+	while (s1[i++])
+		out[i] = s1[i];
+	while (s2[j++])
+		out[i + j] = s2[j];
 	out[i + j] = '\0';
 	ft_free(s1, s2);
 	return (out);
