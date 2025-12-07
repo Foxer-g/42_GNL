@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 11:59:09 by toespino          #+#    #+#             */
-/*   Updated: 2025/12/06 19:37:48 by toespino         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:18:41 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 char	*ft_free(char *s1, char *s2)
 {
-	free(s1);
-	free(s2);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
 	return (NULL);
 }
 
@@ -23,6 +25,8 @@ int	ft_strlen(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;
@@ -34,9 +38,10 @@ int	ft_strchr(char *str, int c)
 	int	out;
 	int	i;
 
-	if (!str)
+	if (!str || !*str)
 		return (0);
 	i = 0;
+	out = 0;
 	while (str[i])
 	{
 		if (str[i] == (char)c)
@@ -55,18 +60,23 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
-	if (!s1 || !s2)
-		return (NULL);
 	out = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char *));
 	if (!out)
 		return (NULL);
-	i = -1;
-	j = -1;
-	while (s1[i++])
-		out[i] = s1[i];
-	while (s2[j++])
+	i = 0;
+	if (s1)
+		while (s1[i])
+		{
+			out[i] = s1[i];
+			i++;
+		}
+	j = 0;
+	while (s2[j])
+	{
 		out[i + j] = s2[j];
+		j++;
+	}
 	out[i + j] = '\0';
-	ft_free(s1, s2);
+	free(s1);
 	return (out);
 }

@@ -6,7 +6,7 @@
 /*   By: toespino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 11:46:23 by toespino          #+#    #+#             */
-/*   Updated: 2025/12/06 19:39:48 by toespino         ###   ########.fr       */
+/*   Updated: 2025/12/07 22:37:34 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@ char	*ft_strlcpy_until(char *stash)
 
 	if (!stash)
 		return (NULL);
-	out = malloc(sizeof(char*) * ft_strlen(stash));
-	while (stash[i] != '\n' || stash[i])
+	i = 0;
+	out = malloc(sizeof(char) * (ft_strlen(stash) + 1));
+	if (!out)
+		return (NULL);
+	while (stash[i] != '\n' && stash[i])
 	{
 		out[i] = stash[i];
 		i++;
 	}
+	out[i] = '\n';
+	out[i + 1] = '\0';
 	return (out);
 }
 
@@ -36,31 +41,41 @@ char	*ft_strlcpy_since(char *stash)
 
 	if (!stash)
 		return (NULL);
-	out = malloc(sizeof(char*) * ft_strlen(stash));
-	while (stash[i] != '\n' || stash[i])
+	i = 0;
+	out = malloc(sizeof(char) * (ft_strlen(stash) + 1));
+	if (!out)
+		return (NULL);
+	while (stash[i] != '\n' && stash[i])
 		i++;
-	while (stash[i])
+	i++;
+	j = 0;
+	while (stash[i + j])
 	{
 		out[j] = stash[i + j];
 		j++;
 	}
+	out[j] = '\0';
 	return (out);
 }
 
-char	*ft_process(char *stash)
+char	*ft_process(char **stash)
 {
-	 char	*out;
+	char	*out;
+	char	*temp;
+	char	*line;
 
 	if (!stash || !*stash)
+		return (NULL);
+	if (!**stash || !stash)
 	{
-		free(stash);
+		free(*stash);
 		return (NULL);
 	}
-	out = malloc(sizeof(char*) * ft_strlen(stash));
-	if (!out)
-		return (NULL);
-	out = ft_strlcpy_until(stash);
-	stash = ft_strlcpy_since(stash);
+	out = ft_strlcpy_until(*stash);
+	line = ft_strlcpy_since(*stash);
+	temp = *stash;
+	free(temp);
+	*stash = line;
 	return (out);
 }
 
@@ -71,10 +86,11 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*out;
 
-	buffer = malloc(sizeof(char*) * (BUFFER_SIZE + 1));
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
 	red_bytes = 1;
+	*buffer = 0;
 	while (ft_strchr(buffer, '\n') == 0 && red_bytes > 0)
 	{
 		red_bytes = read(fd, buffer, BUFFER_SIZE);
@@ -86,6 +102,7 @@ char	*get_next_line(int fd)
 		buffer[red_bytes] = '\0';
 		stash = ft_strjoin(stash, buffer);
 	}
-	out = ft_process(stash);
+	out = ft_process(&stash);
+	free(buffer);
 	return (out);
 }
